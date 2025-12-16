@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Agentic AI App</h3>
+    <form id="form">
+      <textarea name="text" rows="5" cols="60"></textarea><br />
+      <input type="file" name="file" /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <pre id="out"></pre>
+
+    <script>
+      document.getElementById("form").onsubmit = async (e) => {
+        e.preventDefault();
+        const res = await fetch("/process", {
+          method: "POST",
+          body: new FormData(e.target),
+        });
+        document.getElementById("out").innerText = JSON.stringify(
+          await res.json(),
+          null,
+          2
+        );
+      };
+    </script>
+  </body>
+</html>
